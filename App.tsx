@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import Stamp from './components/Stamp';
-import { StampData } from './types';
+import { StampData, SceneryType } from './types';
 import { STAMP_COLORS, BORDER_COLORS, TEXT_COLORS } from './constants/colors';
 
 const INITIAL_STAMPS: StampData[] = [
@@ -23,6 +23,34 @@ const App: React.FC = () => {
 
   const handleTextChange = (id: number, text: string) => {
     setStamps(prev => prev.map(s => s.id === id ? { ...s, text } : s));
+  };
+
+  const getRandomColor = (colors: Record<string, string>) => {
+    const colorValues = Object.values(colors);
+    return colorValues[Math.floor(Math.random() * colorValues.length)];
+  };
+
+  const getRandomScenery = (): SceneryType => {
+    const sceneryTypes: SceneryType[] = [
+      'seed', 'mountain-night', 'rainy-lake', 'sprout', 'misty-forest',
+      'stormy-sea', 'meadow-path', 'sunrise-hills', 'golden-field', 'holding-flower'
+    ];
+    return sceneryTypes[Math.floor(Math.random() * sceneryTypes.length)];
+  };
+
+  const handleAddStamp = () => {
+    const newId = Math.max(...stamps.map(s => s.id)) + 1;
+    const newStamp: StampData = {
+      id: newId,
+      text: "New Stamp! Edit me!",
+      bgColor: getRandomColor(STAMP_COLORS),
+      borderColor: getRandomColor(BORDER_COLORS),
+      textColor: getRandomColor(TEXT_COLORS),
+      scenery: getRandomScenery(),
+      rotation: Math.random() * 6 - 3, // Random rotation between -3 and 3 degrees
+      hasPlaid: Math.random() > 0.5, // 50% chance of having plaid
+    };
+    setStamps(prev => [...prev, newStamp]);
   };
 
   const handleDownload = async () => {
@@ -55,6 +83,16 @@ const App: React.FC = () => {
           aria-label={isEditing ? 'Done Editing' : 'Edit Messages'}
         >
           {isEditing ? '✓ Done Editing' : '✎ Edit Messages'}
+        </button>
+
+        <div className="w-px h-6 bg-gray-300 mx-1"></div>
+
+        <button 
+          onClick={handleAddStamp}
+          className="px-4 py-1.5 bg-blue-500 hover:bg-blue-600 text-white rounded-full font-hand text-sm font-bold shadow-lg shadow-blue-200 transition-all flex items-center gap-2"
+          aria-label="Add New Stamp"
+        >
+          <span>➕</span> Add New Stamp
         </button>
 
         <div className="w-px h-6 bg-gray-300 mx-1"></div>
