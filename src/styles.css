@@ -1,0 +1,36 @@
+.font-hand { font-family: 'Patrick Hand', cursive; }
+.font-comic { font-family: 'Gloria Hallelujah', cursive; }
+.font-tag { font-family: 'Schoolbell', cursive; }
+
+.paper-texture {
+  background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+}
+
+.stamp-mask {
+  mask-image: radial-gradient(circle at 12px 12px, transparent 10px, black 11px);
+  mask-size: 24px 24px;
+  mask-repeat: repeat;
+}
+
+.polka-dots {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.4) 2px, transparent 0);
+  background-size: 10px 10px;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(var(--rot, 0deg)); }
+  50% { transform: translateY(-8px) rotate(calc(var(--rot, 0deg) + 1deg)); }
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+input::placeholder {
+  color: rgba(255,255,255,0.5);
+}
+
+/* Custom scrollbar for a clean look */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #d1d1d1; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #b1b1b1; }
