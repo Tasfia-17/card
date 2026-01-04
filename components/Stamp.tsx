@@ -8,9 +8,10 @@ interface StampProps {
   isEditing: boolean;
   onTextChange: (id: number, text: string) => void;
   onDelete: (id: number) => void;
+  onRandomize: (id: number) => void;
 }
 
-const Stamp: React.FC<StampProps> = ({ data, isEditing, onTextChange, onDelete }) => {
+const Stamp: React.FC<StampProps> = ({ data, isEditing, onTextChange, onDelete, onRandomize }) => {
   const [isGenerating, setIsGenerating] = useState(false);
 
   const handleGenerateText = async () => {
@@ -90,6 +91,19 @@ const Stamp: React.FC<StampProps> = ({ data, isEditing, onTextChange, onDelete }
               </svg>
             )}
             <span>{isGenerating ? 'Generating...' : 'AI Text'}</span>
+          </button>
+        )}
+
+        {/* Randomize Button (visible in edit mode) */}
+        {isEditing && (
+          <button 
+            onClick={() => onRandomize(data.id)}
+            className="absolute top-2 right-12 z-20 bg-yellow-500/80 hover:bg-yellow-600/90 text-white rounded-full p-1 shadow-md transition-all"
+            aria-label={`Randomize stamp ${data.id}`}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004 12v5m7-14l-4 4L8 14m0 0l-4 4m4-4H4m7 7l4-4 4 4m0 0l4 4m-4-4h4" />
+            </svg>
           </button>
         )}
 
