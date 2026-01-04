@@ -1,19 +1,19 @@
-
 import React, { useState, useRef } from 'react';
 import Stamp from './components/Stamp';
 import { StampData } from './types';
+import { STAMP_COLORS, BORDER_COLORS, TEXT_COLORS } from './constants/colors';
 
 const INITIAL_STAMPS: StampData[] = [
-  { id: 1, text: "It started as a tiny quiet seed", bgColor: "#5a6da3", borderColor: "#a8b454", textColor: "#ffffff", scenery: 'seed', rotation: -1 },
-  { id: 2, text: "Through the longest winter nights", bgColor: "#fce4ec", borderColor: "#9575cd", textColor: "#5e35b1", scenery: 'mountain-night', rotation: 2, hasPlaid: true },
-  { id: 3, text: "And the heavy pouring rain", bgColor: "#a7ffeb", borderColor: "#f06292", textColor: "#c2185b", scenery: 'rainy-lake', rotation: -2 },
-  { id: 4, text: "You found your hidden strength", bgColor: "#ffb74d", borderColor: "#66bb6a", textColor: "#ffffff", scenery: 'sprout', rotation: 1 },
-  { id: 5, text: "Even when the path was shrouded", bgColor: "#3f51b5", borderColor: "#9e9d24", textColor: "#ffffff", scenery: 'misty-forest', rotation: -1.5 },
-  { id: 6, text: "By shadows of doubt", bgColor: "#9575cd", borderColor: "#9e9d24", textColor: "#ffffff", scenery: 'stormy-sea', rotation: 2, hasPlaid: true },
-  { id: 7, text: "You kept moving forward", bgColor: "#4db6ac", borderColor: "#f06292", textColor: "#ffffff", scenery: 'meadow-path', rotation: -1 },
-  { id: 8, text: "Now the morning sun arises", bgColor: "#ffa726", borderColor: "#00897b", textColor: "#ffffff", scenery: 'sunrise-hills', rotation: 3 },
-  { id: 9, text: "To kiss the golden fields", bgColor: "#80cbc4", borderColor: "#f06292", textColor: "#004d40", scenery: 'golden-field', rotation: -2 },
-  { id: 10, text: "And you are finally blooming", bgColor: "#fce4ec", borderColor: "#9575cd", textColor: "#880e4f", scenery: 'holding-flower', rotation: 0.5, hasPlaid: true }
+  { id: 1, text: "It started as a tiny quiet seed", bgColor: STAMP_COLORS.PRIMARY_BLUE, borderColor: BORDER_COLORS.LIME_400, textColor: TEXT_COLORS.WHITE, scenery: 'seed', rotation: -1 },
+  { id: 2, text: "Through the longest winter nights", bgColor: STAMP_COLORS.LIGHT_PINK, borderColor: BORDER_COLORS.DEEP_PURPLE_300, textColor: TEXT_COLORS.DEEP_PURPLE_700, scenery: 'mountain-night', rotation: 2, hasPlaid: true },
+  { id: 3, text: "And the heavy pouring rain", bgColor: STAMP_COLORS.TEAL_A700, borderColor: BORDER_COLORS.PINK_300, textColor: TEXT_COLORS.PINK_700, scenery: 'rainy-lake', rotation: -2 },
+  { id: 4, text: "You found your hidden strength", bgColor: STAMP_COLORS.AMBER_400, borderColor: BORDER_COLORS.GREEN_400, textColor: TEXT_COLORS.WHITE, scenery: 'sprout', rotation: 1 },
+  { id: 5, text: "Even when the path was shrouded", bgColor: STAMP_COLORS.INDIGO_700, borderColor: BORDER_COLORS.LIME_700, textColor: TEXT_COLORS.WHITE, scenery: 'misty-forest', rotation: -1.5 },
+  { id: 6, text: "By shadows of doubt", bgColor: STAMP_COLORS.DEEP_PURPLE_300, borderColor: BORDER_COLORS.LIME_700, textColor: TEXT_COLORS.WHITE, scenery: 'stormy-sea', rotation: 2, hasPlaid: true },
+  { id: 7, text: "You kept moving forward", bgColor: STAMP_COLORS.TEAL_400, borderColor: BORDER_COLORS.PINK_300, textColor: TEXT_COLORS.WHITE, scenery: 'meadow-path', rotation: -1 },
+  { id: 8, text: "Now the morning sun arises", bgColor: STAMP_COLORS.ORANGE_400, borderColor: BORDER_COLORS.TEAL_800, textColor: TEXT_COLORS.WHITE, scenery: 'sunrise-hills', rotation: 3 },
+  { id: 9, text: "To kiss the golden fields", bgColor: STAMP_COLORS.CYAN_200, borderColor: BORDER_COLORS.PINK_300, textColor: TEXT_COLORS.BROWN_900, scenery: 'golden-field', rotation: -2 },
+  { id: 10, text: "And you are finally blooming", bgColor: STAMP_COLORS.LIGHT_PINK, borderColor: BORDER_COLORS.DEEP_PURPLE_300, textColor: TEXT_COLORS.PINK_900, scenery: 'holding-flower', rotation: 0.5, hasPlaid: true }
 ];
 
 const App: React.FC = () => {
@@ -31,6 +31,7 @@ const App: React.FC = () => {
     
     // Small delay to ensure UI updates
     setTimeout(async () => {
+      // html2canvas is loaded globally via CDN in index.html
       const canvas = await (window as any).html2canvas(galleryRef.current, {
         backgroundColor: '#fdf6e3',
         scale: 2, // Higher quality
@@ -51,6 +52,7 @@ const App: React.FC = () => {
         <button 
           onClick={() => setIsEditing(!isEditing)}
           className={`px-4 py-1.5 rounded-full font-hand text-sm font-bold transition-all ${isEditing ? 'bg-pink-500 text-white' : 'bg-gray-100 hover:bg-gray-200'}`}
+          aria-label={isEditing ? 'Done Editing' : 'Edit Messages'}
         >
           {isEditing ? '✓ Done Editing' : '✎ Edit Messages'}
         </button>
@@ -60,6 +62,7 @@ const App: React.FC = () => {
         <button 
           onClick={handleDownload}
           className="px-4 py-1.5 bg-green-500 hover:bg-green-600 text-white rounded-full font-hand text-sm font-bold shadow-lg shadow-green-200 transition-all flex items-center gap-2"
+          aria-label="Download Gallery"
         >
           <span>📥</span> Download Gallery
         </button>
